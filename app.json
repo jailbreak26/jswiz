@@ -5,7 +5,6 @@
   "repository": "https://github.com/jailbreak26/jswiz",
   "keywords": [
     "javascript",
-    "obfuscator",
-    "heroku"
+    "obfuscator"
   ]
 }
