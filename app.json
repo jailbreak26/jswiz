@@ -1,0 +1,11 @@
+{
+  "name": "jsob",
+  "description": "a js obfuscator",
+  "website": "https://github.com/jailbreak26/jsob",
+  "repository": "https://github.com/jailbreak26/jsob",
+  "keywords": [
+    "javascript",
+    "obfuscator",
+    "heroku"
+  ]
+}
