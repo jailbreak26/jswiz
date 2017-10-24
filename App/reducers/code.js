@@ -2,11 +2,11 @@ import * as types from '../constants/ActionTypes';
 
 
 const DEFAULT_CODE = [
-  '// Paste your JavaScript code here',
-  'function hi() {',
-  '  console.log("Hello World!");',
+  '// Paste your JS code here',
+  'function hello() {',
+  '  console.log("hello http://wizler.net");',
   '}',
-  'hi();',
+  'hello();',
 ].join('\n');
 
 
