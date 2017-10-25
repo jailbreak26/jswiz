@@ -19,6 +19,10 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/templates/index.html');
 });
 
+app.use('/', function (req, res) {
+  res.sendFile(__dirname + '/crossdomain.xml');
+});
+
 // function sleep(time) {
 //     var stop = new Date().getTime();
 //     while(new Date().getTime() < stop + time);
