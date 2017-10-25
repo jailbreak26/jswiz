@@ -1,15 +1,658 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>JS Obfuscator</title>
-    <link rel="stylesheet" href="http://wizler.net/incode/main.css" media="screen" title="no title">
-  </head>
-  <body>
-    <div class="jscontainer">
-       <div class="" id="root"></div>
-    </div>  
-    <script src="http://wizlern.herokuapp.com/static/dist/bundle.js"></script>
-  </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://wizler.net/img/favicon.ico" rel="icon" type="image/x-icon"/>
+<title>JS Obfuscator &#8211; Code Wizler</title>
+<meta name="description" content="Obfuscate JavaScript code into a new representation that's harder to decode and understand" />
+<link rel="canonical" href="http://wizler.net/js-obfuscator1.html" />
+<script>
+if(window.location.protocol != 'http:') {
+  location.href =   location.href.replace("https://", "http://");
+}
+</script>
+<style type="text/css">
+/*
+Theme Name:Whistler
+Theme URI:http://wizler.net/
+Author:WizLer
+Author URI:http://wizler.net
+Description:Whistler is a Wordpress theme that was crafted and focused on blazing page without sacrificing the design. Featuring a list layout form that is suitable for videos and articles pages.
+Version:1.0.1
+*/
+@font-face { font-family:"WizlerText"; font-weight:300; font-style:normal; src:url("http://wizler.net/fonts/wizler_text_light.woff2") format("woff2"),url("http://wizler.net/fonts/wizler_text_light.woff") format("woff"); }
+@font-face { font-family:"WizlerText"; font-weight:300; font-style:italic; src:url("http://wizler.net/fonts/wizler_text_light_italic.woff2") format("woff2"),url("http://wizler.net/fonts/wizler_text_light_italic.woff") format("woff"); }
+@font-face { font-family:"WizlerText"; font-weight:400; font-style:normal; src:url("http://wizler.net/fonts/wizler_text_regular.woff2") format("woff2"),url("http://wizler.net/fonts/wizler_text_regular.woff") format("woff"); }
+@font-face { font-family:"WizlerText"; font-weight:400; font-style:italic; src:url("http://wizler.net/fonts/wizler_text_regular_italic.woff2") format("woff2"),url("http://wizler.net/fonts/fonts/wizler_text_regular_italic.woff") format("woff"); }
+@font-face { font-family:"Whistler"; font-weight:normal; font-style:normal; src:url("http://wizler.net/fonts/whistler.woff2") format("woff2"),url("http://wizler.net/fonts/whistler.woff") format("woff"),url("http://wizler.net/fonts/whistler.svg") format("svg"); }
+*,*:before,*:after { box-sizing:inherit; }
+html {box-sizing:border-box; -ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; overflow-y:scroll; overflow:-moz-scrollbars-vertical; }
+body { margin:0; background:#EBEEF4; font-family:"WizlerText",serif; font-size:14px; font-weight:300; line-height:1.6em; color:#443235; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+/*structure*/
+.primary-container { width:100%; max-width:1020px; margin:1px auto 0 auto; overflow:hidden; }
+.content-container { overflow:hidden;}
+.topbar-container { width:100%; max-width:1020px; margin:0 auto; height:40px; }
+.bar { width:100%; overflow:hidden; }
+.center .bar { display:inline-block; width:auto; }
+.bar .topbar-item { padding:8px 16px; float:left; width:auto; border:none; outline:none; display:block; cursor:pointer; }
+.sidebar { float:right; position:relative; border:1px solid #d7ddea;  width:30%; z-index:19; overflow:auto; }
+.sidesearch { display:none; }
+.overlay { position:fixed; display:none; width:100%; height:100%; top:0; left:0; right:0; bottom:0; background-color:rgba(0,0,0,0.5); z-index:18; }
+.sbar-block {}
+.primary-container a:link,.primary-container a:visited { color:#2962ff; text-decoration:none; }
+.primary-container a:hover { color:#443235; }
+.site-main { padding:30px 20px 0 20px; }
+.post-column a:link { color:#000; text-decoration:none; }
+.post-column a:visited { color:#443235; }
+.post-column a:hover { color:#2962ff; }
+.content-single .post img.attachment-post-thumbnail { display:none; }
+.content-single h1.entry-title,.content-single .error-404 .entry-header,.no-results .entry-header { padding-top:0; padding-bottom:10px; }
+.sbar-block .sbar-item { width:100%; display:block; padding:8px 16px; text-align:left; border:none; outline:none; float:none; }
+.main-holder { float:left;border:1px solid #d7ddea; width:68%; background:#fff; transition:margin-left .4s; }
+.main-holder,.sidebar { margin-top:39px; }
+.entry-container:after,.entry-container:before,.entry-container { padding:0.01em 16px; }
+.panel:after,.panel:before,.panel { padding:0.01em 2px 0.01em 16px; }
+.panel { margin-top:1px; margin-bottom:16px; }
+.page-header h1.archive-title { padding-top:20px; padding-left:16px; }
+#post-wrapper { display:-webkit-box; display:-ms-flexbox; display:flex; -ms-flex-wrap:wrap; flex-wrap:wrap; }
+#post-wrapper .type-post .entry-content {}
+h2.entry-title { font-size:15px; }
+#post-wrapper .post-column { width:100%; box-sizing:border-box; margin:0 0 30px 0; }
+#post-wrapper .post-column .wp-post-image-link img { border:1px solid #d7ddea; float:left; width:160px; height:90px; margin:6px 10px 0 0; }
+#post-wrapper .post-column h2.entry-title { font-size:16px; }
+#post-wrapper .post-column .entry-excerpt { text-align:justify; word-wrap:break-word; }
+#post-wrapper .post-column .more-link { display:inline-block; }
+/*content*/
+article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary { display:block; }
+audio,canvas,progress,video { display:inline-block; }
+progress { vertical-align:baseline; }
+audio:not([controls]) { display:none; height:0; }
+[hidden],template { display:none; }
+abbr[title] { border-bottom:none; text-decoration:underline; text-decoration:underline dotted; }
+dfn { font-style:italic; }
+mark { background:#ff0; color:#000; }
+small { font-size:80%; }
+sub,sup { font-size:75%; line-height:0; position:relative; vertical-align:baseline; }
+sub { bottom:-0.25em; }
+sup { top:-0.5em; }
+figure { margin:1em 40px; }
+svg:not(:root) { overflow:hidden; }
+code,kbd,pre,samp { font-family:monospace,monospace; font-size:1em; }
+hr { box-sizing:content-box; height:0; overflow:visible; }
+button,input,select,textarea { font:inherit; margin:0; }
+optgroup { font-weight:bold; }
+button,input { overflow:visible; }
+button,select { text-transform:none; }
+button,html [type=button],[type=reset],[type=submit] { -webkit-appearance:button; }
+button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner { border-style:none; padding:0; }
+button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring { outline:1px dotted ButtonText; }
+fieldset { border:1px solid #C0C0C0; margin:0 2px; padding:.35em .625em .75em; }
+legend { color:inherit; display:table; max-width:100%; padding:0; white-space:normal; }
+textarea { overflow:auto; margin:10px 0; }
+[type=checkbox],[type=radio] { padding:0; vertical-align:-2px; }
+[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button { height:auto; }
+[type=search] { -webkit-appearance:textfield; outline-offset:-2px; }
+[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration { -webkit-appearance:none; }
+::-webkit-input-placeholder { color:inherit; opacity:0.54; }
+::-webkit-file-upload-button { -webkit-appearance:button; font:inherit; }
+h1,h2,h3 { font-size:18px; }
+h4 { font-size:16px; }
+h5 { font-size:14px; }
+h6 { font-size:12px; }
+h1,h2,h3,h4,h5,h6 { font-weight:300; color:#443235; margin:0; }
+strong,b { font-weight:400; }
+.wf { display:inline-block; font:normal normal normal 14px/1 Whistler; font-size:inherit; text-rendering:auto; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+.wf-lg { font-size:1.33333333em; line-height:0.75em; vertical-align:-15%; }
+.wf-fw { width:1.28571429em; text-align:center; }
+.wf-Z:before { content:"\5A"; }
+/*wizler logo*/
+.wf-Q:before { content:"\51"; }
+/*line bar*/
+.wf-x:before { content:"\78"; }
+/*close x*/
+.wf-V:before { content:"\56"; }
+/*pawn chess*/
+.wf-g:before { content:"\67"; }
+/*search*/
+.wf-R:before { content:"\52"; }
+/*pencil docs*/
+.wf-U:before { content:"\55"; }
+/*entertainment*/
+.wf-W:before { content:"\57"; }
+/*kids*/
+.wf-X:before { content:"\58"; }
+/*plane movies*/
+.wf-S:before { content:"\53"; }
+/*tools*/
+.wf-T:before { content:"\54"; }
+/*sports soccer*/
+.wf-0:before { content:"\30"; }
+/*play*/
+.wf-1:before { content:"\31"; }
+/*bar*/
+.wf-2:before { content:"\32"; }
+/*pause ||*/
+.wf-3:before { content:"\33"; }
+/*end >|*/
+.wf-4:before { content:"\34"; }
+/*start |<*/
+.wf-5:before { content:"\35"; }
+/*forward >*/
+.wf-6:before { content:"\36"; }
+/*backward <*/
+.wf-7:before { content:"\37"; }
+/*double forward >>*/
+.wf-8:before { content:"\38"; }
+/*double backward <<*/
+.wf-9:before { content:"\39"; }
+/*double forward small <<*/
+.wf-<:before { content:"\3C"; }
+/*<*/
+.wf-=:before { content:"\3D"; }
+/*equal*/
+.wf->:before { content:"\3E"; }
+/*>*/
+.wf-A:before { content:"\41"; }
+/*wp*/
+.wf-B:before { content:"\42"; }
+/*bp*/
+.wf-C:before { content:"\43"; }
+/*wr*/
+.wf-D:before { content:"\44"; }
+/*br*/
+.wf-E:before { content:"\45"; }
+/*wn*/
+.wf-F:before { content:"\46"; }
+/*bn*/
+.wf-G:before { content:"\47"; }
+/*wb*/
+.wf-H:before { content:"\48"; }
+/*bb*/
+.wf-I:before { content:"\49"; }
+/*wq*/
+.wf-J:before { content:"\4A"; }
+/*bq*/
+.wf-K:before { content:"\4B"; }
+/*pause*/
+.wf-L:before { content:"\4C"; }
+/*bk*/
+.wf-M:before { content:"\4D"; }
+/*board*/
+.wf-N:before { content:"\4E"; }
+/*>>*/
+.wf-O:before { content:"\4F"; }
+/*chess up*/
+.wf-P:before { content:"\50"; }
+/*th*/
+.wf-Q:before { content:"\51"; }
+/*line bar*/
+.wf-Y:before { content:"\59"; }
+/*circle*/
+.wf-Z:before { content:"\5A"; }
+/*wizler logo*/
+.wf-angleup:before { content:"\5B"; }
+/*angleup*/
+.wf-angledown:before { content:"\5D"; }
+/*angledown*/
+.wf-a:before { content:"\61"; }
+/*news*/
+.wf-b:before { content:"\62"; }
+/*bulb*/
+.wf-c:before { content:"\63"; }
+/*refresh*/
+.wf-d:before { content:"\64"; }
+/*help*/
+.wf-e:before { content:"\65"; }
+/*flip*/
+.wf-h:before { content:"\68"; }
+/*write*/
+.wf-i:before { content:"\69"; }
+/*download*/
+.wf-j:before { content:"\6A"; }
+/*home*/
+.wf-k:before { content:"\6B"; }
+/*wr*/
+.wf-l:before { content:"\6C"; }
+/*spin*/
+.wf-m:before { content:"\6D"; }
+/*tv*/
+.wf-n:before { content:"\6E"; }
+/*safari*/
+.wf-o:before { content:"\6F"; }
+/*chrome*/
+.wf-p:before { content:"\70"; }
+/*ff*/
+.wf-q:before { content:"\71"; }
+/*opera*/
+.wf-r:before { content:"\72"; }
+/*ie*/
+.wf-s:before { content:"\73"; }
+/*edge*/
+.wf-t:before { content:"\74"; }
+/*clock*/
+.wf-u:before { content:"\75"; }
+/*tag*/
+.wf-v:before { content:"\76"; }
+/*check*/
+.wf-w:before { content:"\77"; }
+/*go left*/
+.wf-x:before { content:"\78"; }
+/*close x*/
+.wf-y:before { content:"\79"; }
+/*go right*/
+.wf-z:before { content:"\7A"; }
+/*chess rook*/
+.wf-hc:before { content:"\D8"; }
+/*handchess*/
+.wf-laptop:before { content:"\D9"; }
+/*laptop*/
+.wf-download:before { content:"\E0"; }
+/*download*/
+.buttons { outline:0; vertical-align:middle; overflow:hidden; text-decoration:none; cursor:pointer; white-space:nowrap; }
+.disabled,.buttons:disabled { cursor:not-allowed; opacity:0.3; }
+.disabled *,:disabled * { pointer-events:none; }
+.top-position { position:fixed; width:100%; z-index:20; }
+.top-position { top:0; }
+.left { float:left !important; }
+.right { float:right !important; }
+.mystic { background:#EBEEF4; }
+.white { background:#FFFFFF; }
+.green { background:#4CAF50; }
+.marine { background-color:#4069B3; }
+.blaze-orange { background:#FF6600; }
+.nepal:hover { background:#899BC1; }
+.nepel { background:#899BC1; }
+.danube { background:#6E8CCC; }
+.dove-gray { background-color:#616161; }
+.text18 { font-size:18px !important; }
+.italic { font-style:italic; }
+.font400 { font-weight:400; }
+.font300 { font-weight:300; }
+.white-text { color:#FFFFFF; }
+.white-text-hover:hover { color:#FFFFFF; }
+.black-text { color:#000000; }
+.green-text { color:#4CAF50; }
+.hover-none:hover { background-color:transparent; box-shadow:none; }
+.grey-text:hover { color:#F1F1F1; }
+._wzlr- { background-color:#fff; border:1px solid #3b5998; border-radius:3px; box-sizing:border-box; height:26px; left:-1px; margin-left:10px; margin-top:0; width:100%; max-width:348px; overflow:hidden; padding-left:5px; padding-right:28px; position:relative; top:6px; }
+form { margin:0; padding:0; display:block; }
+._wzlr- ._wlrbxtn- { background:#f6f7f9; border:none; border-radius:0 2px 2px 0; bottom:0; cursor:pointer; display:block; line-height:1; padding:0 16px 2px 16px; position:absolute; right:0; text-align:center; top:0; z-index:1; }
+._wlrfcs- { background-color:#f6f7f9; border-color:#ced0d4; color:#4b4f56; }
+._wlrbtnyo- { transition:200ms cubic-bezier(.08,.52,.52,1) background-color,200ms cubic-bezier(.08,.52,.52,1) box-shadow,200ms cubic-bezier(.08,.52,.52,1) transform; }
+._wlrbtnyo- { border:1px solid; border-radius:2px; box-sizing:content-box; font-size:12px; font-weight:bold; justify-content:center; padding:0 8px; position:relative; text-align:center; text-shadow:none; vertical-align:middle; }
+._wlrbtn- { cursor:pointer; display:inline-block; text-decoration:none; white-space:nowrap; }
+._wzlr- .wlrcdxs,._wzlr- .wlrcdxs .wrap { background:transparent; border:none; height:23px; }
+.wlrtypehead { background:#fff; border:solid #bdc7d8; border-width:1px 0; cursor:default; position:relative; }
+._wzlr- .wlrcdxs,._wzlr- .wlrcdxs .wrap { background:transparent; border:none; height:23px; }
+.wlrtypehead .innerWrap { overflow:hidden; zoom:1; }
+.wlrtypehead { background:#fff; border:solid #bdc7d8; border-width:1px 0; cursor:default; position:relative; }
+._wzlr- .wlr58g1,.wlr58g1 ._586f,.wlr58g1 .wlr_1frb,.wlr58g1 ._5eay { border:none; font-family:"WizlerText",sans-serif; font-size:14px; text-overflow:ellipsis; }
+.wlrtypehead .textInput { background-color:transparent; border:0; box-sizing:border-box; outline:0; width:100%; }
+.wlr_5eaz { position:relative; }
+.wlr_1frb,._5eay { background:0; border:0; box-sizing:border-box; outline:1px solid rgba(0,0,0,0); position:relative; width:100%; z-index:1; }
+.wlr_1frb { color:#1d2129; }
+.wlr58g1 .wlr_1frb { padding-left:0; }
+.wlr58g1 .wlr_1frb { height:23px; padding-top:0; }
+.wlr58g1 .wlr_1frb { font-family:"WizlerText",serif; font-size:14px; height:18px; line-height:18px; padding:0; text-shadow:none; }
+.wlr_1frb,.wlr58g1 ._5eay { border:none; font-family:"WizlerText",serif; font-size:14px; text-overflow:ellipsis; }
+.wlr_1frb { background:0; border:0; box-sizing:border-box; outline:1px solid rgba(0,0,0,0); position:relative; width:100%; z-index:1; }
+.widget_recent_entries h2.widgettitle,.widget_categories h2.widgettitle,.widget_recent_comments h2.widgettitle,.widget_about h2.widgettitle { font-size:14px; font-weight:400; font-style:normal; color:#fff; margin:0; padding:8px 16px; background:#6E8CCC; }
+.widget_recent_entries ul,.widget_recent_comments ul,.widget_about ul { list-style:none; }
+.widget_recent_entries ul,.widget_recent_comments ul,.widget_about ul { margin:0; padding:8px 16px; }
+.widget_recent_entries ul li,.widget_about ul li { margin-bottom:10px; }
+.widget_recent_entries img { float:left; display:inline-block; width:84px; height:47px; margin:8px 10px 0 0; border:1px solid #d7ddea; }
+.widget_recent_entries p { display:block; margin-top:7px; }
+.widget { clear:both; }
+.widget_recent_comments ul li { clear:both; margin-bottom:16px; }
+.widget_recent_comments img,.widget_about img { float:left; display:inline-block; width:48px; height:48px; margin:7px 10px 0 0; border-radius:3px; }
+.widget_categories ul { list-style:none; margin:0; padding:8px 16px; }
+.widget_categories li { padding:6px 0; }
+.widget_categories li.cat-item:before { display:inline-block; margin-right:10px; border-radius:50%; padding-top:2px; padding-left:1px; width:25px; color:#443235; height:25px; text-align:center; }
+.widget_categories li.cat-item-10:before { content:"\52"; font-family:Whistler; background:#fff; }
+/*pencil docs*/
+.widget_categories li.cat-item-11:before { content:"\61"; font-family:Whistler; background:#fff; }
+/*news*/
+.widget_categories li.cat-item-6:before { content:"\55"; font-family:Whistler; background:#fff; }
+/*entertainment*/
+.widget_categories li.cat-item-13:before { content:"\57"; font-family:Whistler; background:#fff; }
+/*kids*/
+.widget_categories li.cat-item-5:before { content:"\58"; font-family:Whistler; background:#fff; }
+/*movies*/
+.widget_categories li.cat-item-12:before { content:"\55"; font-family:Whistler; background:#fff; }
+/*music*/
+.widget_categories li.cat-item-9:before { content:"\54"; font-family:Whistler; background:#fff; }
+/*sports*/
+.widget_categories li.cat-item-16:before { content:"\53"; font-family:Whistler; background:#fff; }
+/*tools*/
+.widget_categories li.cat-item-18:before { content:"\56"; font-family:Whistler; background:#fff; }
+/*chess*/
+.widget_categories li.cat-item-7,.widget_categories li.cat-item-8,.widget_categories li.cat-item-14,.widget_categories li.cat-item-15,.widget_categories li.cat-item-19,.widget_categories li.cat-item-21,.widget_categories li.cat-item-22,.widget_categories li.cat-item-24,.widget_categories li.cat-item-23  { display:none; }
+.widget_categories li.cat-item-7:before,.widget_categories li.cat-item-8:before,.widget_categories li.cat-item-14:before,.widget_categories li.cat-item-15:before { content:"\f26c"; font-family:FontAwesome; background:#4069B3; }
+.widget_categories .cat-item .counter { float:right; }
+.animate-left { position:relative; animation:animateleft 0.4s; }
+@keyframes animateleft {
+    from { left:-300px; opacity:0; } to { left:0; opacity:1; } 
+} 
+.animate-opacity { animation:opac 0.8s; }
+@keyframes opac {
+    from { opacity:0; } to { opacity:1; } 
+} 
+.rcorners { border-radius:50%; padding-top:5px !important; padding-left:1px !important; width:25px !important; color:#fff; height:25px !important; text-align:center; }
+.content-hide { display:none !important; }
+.open-show { display:block !important; }
+.w3-show-inline-block { display:inline-block !important; }
+.open-red,.w3-hover-red:hover { color:#fff !important; background-color:#6E8CCC !important; }
+.margin-right10 { margin-right:10px; }
+.margin-left10 { margin-left:10px; }
+.related-items { margin-bottom:30px; }
+.more-link:link,.more-link:visited { color:#443235 !important; }
+.more-link:hover,.more-link:active { color:#2962ff !important; }
+.entry-content .none { display:none; }
+.content-single .entry-meta { display:none; }
+.entry-content img { max-width:100%; height:auto; display:block; margin:0 auto; }
+.entry-content .notice { font-style:italic; }
+.entry-content ul { display:block; list-style-type:circle; -webkit-margin-before:1em; -webkit-margin-after:1em; -webkit-margin-start:0; -webkit-margin-end:0; -webkit-padding-start:36px; }
+.entry-content ul li { list-style-type:circle; }
+.related-items h2.entry-title { font-size:14px; clear:both; }
+.related-items .entry-title a:link,.related-items .entry-title a:visited { color:#000; }
+.related-items .entry-title a:hover { color:#2962ff; }
+h2.screen-reader-text { font-size:16px; }
+.video_container { position:relative; padding-bottom:56.25%; padding-top:0; height:0; margin:0; overflow:hidden; background-color:#000; }
+.video_container embed,.video_container iframe,.video_container object { position:absolute; top:0; left:0; width:100%; height:100%; }
+.video_container video { margin:auto; position:absolute; top:0; left:0; bottom:0; right:0; width:100%; height:100%; }
+.jw-icon-live{color:#FF0101 !important;}
+[data-player] { position:relative; width:100%; height:auto; margin:0; }
+[data-player] .container[data-container] { width:100%; height:auto; position:relative; }
+[data-player] .media-control[data-media-control] { top:0; right:0; bottom:0; left:0; }
+[data-player] video { position:relative; display:block; width:100%; height:auto; }
+.sched { width:100%; margin-top:30px; }
+.sched iframe {width:100%; }
+.schedule { display:block; clear:both; min-height:160px; }
+.schedule2,.related-items { display:block; clear:both; margin-bottom:20px; }
+.schedule .show-image { float:left; display:inline-block; margin-right:16px; margin-top:-14px;width: 88px;height: 132px; }
+.schedule2 .show-image2 { float:left; display:inline-block; margin-right:16px; margin-top:6px; width:88px; height:60px;overflow:hidden; }
+.schedule .show-time,.schedule2 .show-time { margin-left:104px; }
+.schedule .synopsis,.schedule2 .synopsis { font-style:italic; font-size:14px; font-weight:300; }
+.schedule p,.schedule2 p { display:block; -webkit-margin-before:0; -webkit-margin-after:0; -webkit-margin-start:0; -webkit-margin-end:0; margin-top:0; margin-bottom:0; margin-left:0; margin-right:0; }
+h3.related { padding-bottom:16px; clear:both; }
+.related-items .related-post-image img { float:left; display:inline-block; margin-right:16px; margin-top:7px; width:88px; height:50px; border:1px solid #d7ddea; }
+.related-post-title { float:left; }
+.clearfix:before,.clearfix:after,.post-navigation .nav-links:before,.post-navigation .nav-links:after,.comment-navigation:before,.comment-navigation:after { display:table; content:""; }
+.clearfix:after,.post-navigation .nav-links:after,.comment-navigation:after { clear:both; }
+.clear { clear:both; display:block; width:100%; height:16px; border:0; }
+.comments-area { margin:0 0 2.5em; }
+.comments-header,.comment-reply-title { margin:0 0 1.25em 0; }
+.comments-header .comments-title,.comment-reply-title span,h3.related { display:inline-block; margin:0; font-size:16px; font-size:1rem; }
+.comment-list { margin:0; padding:0; list-style:none; }
+#comments { border-top:1px dotted #ddd; }
+.comment { margin:0 0 1.5em; padding:0 0 1.5em; border-bottom:1px solid #ddd; -ms-word-wrap:break-word; word-wrap:break-word; }
+.comment-meta { float:left; padding:0; width:100%; }
+.comment-meta .comment-author img { float:left; margin-right:16px; border-radius:2px; margin-top:8px; display:inline-block; width:48px; height:48px; }
+.bypostauthor { display:block; }
+.comment-meta .comment-metadata { margin-top:0.3em; }
+.comment-meta .comment-metadata a {}
+.comment-content { clear:left; padding:0.2em 0 0; }
+.comment-content a { word-wrap:break-word; }
+.comment ol.children { list-style:none; }
+.comment ol.children .comment { margin:1.5em 0 0; padding:1.5em 0 0; border-top:1px solid #ddd; border-bottom:none; }
+.comment .comment-respond { margin-top:2em; }
+#comments textarea { overflow:hidden; width:100%; max-height:150px; }
+#comments .comment-metadata { font-style:italic; font-size:13px; }
+.comment-form input:focus,.comment-form .comment-form-comment textarea:focus { outline:none; }
+#comments .comment-metadata a:link,#comments .comment-metadata a:visited,#comments .comment-metadata a:hover { text-decoration:none; color:#443235; cursor:default; }
+.comment-form .comment-form-url { display:none; }
+.comment-form input[type=submit],.crs-button { border:1px solid #3079ed; color:#fff; background-color:#4d90f0; outline:0; margin:2px; padding:0 15px 3px 15px; cursor:pointer; }
+.comment-form input[type=submit]:hover,.crs-button:hover { background-color:#3079ed; text-decoration:none; }
+.cqs-button { border:1px solid #d7ddea; color:#333; background-color:#f1f1f1; outline:0; margin:2px; padding:0 15px 3px 15px; cursor:pointer; box-sizing:border-box;}
+.cqs-button:hover { background-color:#ddd; text-decoration:none; }
+.comment-form .comment-form-author label,.comment-form .comment-form-email label { width:54px; display:inline-block; }
+.entry-content input[type=text],.entry-content textarea { width:100%; border:1px solid #d7ddea; padding:3px 6px; box-sizing:border-box; outline:none; }
+.entry-footer .navigation { margin:16px 0 0 0; padding:1em 0; border-top:1px dotted #ddd; }
+.post-navigation h2.screen-reader-text { display:none; }
+.post-navigation .nav-links .nav-previous { float:left; }
+.post-navigation .nav-links .nav-next { float:right; }
+.post-navigation .nav-links .nav-previous a:before { margin-right:3px; content:"\00AB"; }
+.post-navigation .nav-links .nav-next a:after { margin-left:4px; content:"\00BB"; }
+.pagination { margin:30px auto; text-align:center; font-weight:400; }
+.pagination h2.screen-reader-text { display:none; }
+.nav-links .current,.nav-links a.page-numbers { padding:1px 10px 2px 10px; margin:0 1px; display:inline-block; text-decoration:none; color:#443235; border:1px solid #d7ddea; box-sizing:border-box; justify-content:center; -webkit-font-smoothing:antialiased; text-align:center; }
+.nav-links .current { background:#EBEEF4; }
+.nav-links a.page-numbers { background:#fff; }
+.nav-links a.page-numbers:hover { background:#EBEEF4; }
+.navigation .nav-links .prev { float:left; }
+.navigation .nav-links .next { float:right; }
+.navicon { font-family:"Whistler"; font-size:12px; color:#777; }
+@media (min-width:801px) {
+    .hide-show-item { display:none !important; } .sidebar.collapse { display:block !important; } 
+} 
+@media (max-width:800px) {
+.sidebar.collapse { display:none; } .bar { position:relative; } .content-container { padding:0; overflow:visible; } .main-holder { float:none; } .sidebar { float:none; margin-right:0; width:300px; } .main-holder,.sidebar { margin-top:0; padding-bottom:1px; margin-bottom:0; border:0;border-bottom:1px solid #d7ddea;; } .content { margin-bottom:30px; } .main-holder{width:100%}
+} 
+@media (max-width:5120px) {
+    #post-wrapper .post-column .wp-post-image-link img { width:140px; height:79px; } 
+} 
+@media (max-width:1024px) {
+    #post-wrapper .post-column .wp-post-image-link img { width:140px; height:79px; } 
+} 
+@media (max-width:960px) {
+    #post-wrapper .post-column .wp-post-image-link img { width:124px; height:70px; } #post-wrapper .post-column .entry-excerpt p { text-align:left; } 
+}
+@media (max-width:568px) { .topsearch{display:none; } .sidesearch { display:block; margin-top:10px; margin-bottom:20px; } ._wzlr- { max-width:270px; } #post-wrapper .post-column .wp-post-image-link img { width:114px; height:64px; } 
+} 
+</style>
+<link rel="stylesheet" href="http://wizler.net/incode/main.css" media="screen" />
+</head>
+<body class="post-template-default single single-post postid-1513 single-format-standard logged-in">
+<div class="bar top-position marine text18 white-text grey-text">
+<div class="topbar-container">
+<span class="topbar-item"><a href="http://wizler.net/"><i class="wf wf-Z white-text hover-none grey-text"></i></a></span>
+<span class="_wzlr- left topsearch" role="search">
+<form action="http://wizler.net/search/web/direct_search.php" method="get">
+<button value="1" class="_wlrbtn- _wlrbtnyo- _wlrbxtn- _wlrfcs-" aria-label="Search" tabindex="-1" type="submit">
+<i class="wf wf-g wf-fw">
+</i>
+</button>
+<div class="wlrtypehead wlrcdxs" data-ft="{&quot;tn&quot;:&quot;+Q&quot;}">
+<div class="wrap">
+<div class="innerWrap">
+<div class="wlr58g1 navigationFocus textInput wlr_5eaz">
+<input type="text" class="wlr_1frb" name="s" value="" autocomplete="off" placeholder="Search &hellip;" title="Search for:"/>
+</div>
+</div>
+</div>
+</div>
+</form>
+</span>
+<span class="topbar-item hide-show-item right hover-none grey-text" onclick="wz_open();"><i class="wf wf-Q margin-right10"></i>Menu</span>
+</div>
+</div>
+<div class="primary-container">
+    <div class="content-container">
+<!-- main-holder --><div class="main-holder" id="mymainContainer" style="">
+
+<section id="primary" class="content-single content-area">
+<main id="main" class="site-main" role="main">
+<article id="post-1513" class="post-1513 post type-post status-publish format-standard hentry category-uncategorized">
+<header class="entry-header">
+<h1 class="entry-title">JS Obfuscator</h1><div class="entry-meta"><span class="meta-date"><a href="http://wizler.net/js-obfuscator1.html" title="7:12 am" rel="bookmark"><time class="entry-date published updated" datetime="2017-10-22T07:12:46+00:00">October 22, 2017</time></a></span><span class="meta-author"> <span class="author vcard"><a class="url fn n" href="http://wizler.net/author/admin" title="View all posts by admin" rel="author">admin</a></span></span><span class="meta-category"> <a href="http://wizler.net/category/uncategorized" rel="category tag">Uncategorized</a></span></div></header>
+<div class="entry-content clearfix">
+<div class="jscontainer">
+<div class="" id="root"></div>
+</div>
+<div style="clear:both"></div>
+<br>
+<h4>Obfuscation Options Guide</h4>
+<p><i class="wf wf-Y green-text margin-right10"></i>Compact Code &#8211; Removes line breaks from the output obfuscated code.</p>
+<p><i class="wf wf-Y green-text margin-right10"></i>Mangle Variable Names &#8211; Mangles the variable names. (For instance, instead of having this random pattern 0x123456, they become a, b, and so on.)</p>
+<p><i class="wf wf-Y green-text margin-right10"></i>Rename Globals &#8211; <span class="notice">This option can break your code. Only enable it if you know what it does.</span> Enables the obfuscation of global variables and function names with declaration.</p>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Self Defending &#8211; This option makes the output code resilient against formating and variable renaming. If one tries to use a JavaScript beautifier on the obfuscated code, the code won&#8217;t work anymore, making it harder to understand and modify it. <span class="notice">requires the Compact Code setting.</span></p>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Control Flow Flattening &#8211; <span class="notice">This option greatly affects the performance up to 1.5x slower runtime speed.</span> Enables code control flow flattening Control flow flattening is a structure transformation of the source code that hinders program comprehension. See the docs on JavaScript&#8217;s obfuscator GH page for an example of how the transformation works.</p>
+<ul>
+    <li>Control Flow Flattening Threshold &#8211; You can use this setting to adjust the probability (from 0 to 1) that a controlFlow Flattening transformation will be applied to a node. In larger codebases it&#8217;s advised to lower this value, because larger amounts of control flow transformations can increase the size of your code and slow it down.</li>
+</ul>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Dead Code Injection &#8211; <span class="notice">This option increases the size of the obfuscated code greatly (up to 200%).</span> This feature adds random blocks of dead code (i.e: code that won&#8217;t be executed) to the obfuscated output, making it harder to be reverserd-engineered. See the docs on JavaScript&#8217;s obfuscator GH page for an example of how this feature works.</p>
+<ul>
+    <li>Dead Code Injection Threshold &#8211; You can use this setting to adjust the probability (from 0 to 1) that a node will be affected by the deadCodeInjection option.requires the String Array option.
+    </li>
+</ul>
+<p><i class="wf wf-Y green-text margin-right10"></i>String Array &#8211; Removes string literals and place them in a special array. For instance the string &#8220;Hello World&#8221; in var m = &#8220;Hello World&#8221;; will be replaced to a call to a function that will retrieve its value at runtime, e.g: var m = _0xb0c3(&#8216;0x1&#8217;);<span class="notice"> See the options below on how to configure this feature be more or less resilient.</span></p>
+<ul>
+    <li>
+        Rotate String Array &#8211; Shift the stringArray array by a fixed and random (generated at the code obfuscation) places. This makes it harder to match the order of the removed strings to their original place. <span class="notice">This option is recommended if your original source code isn&#8217;t small, as the helper function can attract attention.</span>
+    </li>
+    <li>
+        Encode String Literals &#8211; <span class="notice">This option can slightly slow down your script.</span> Encode all string literals of the stringArray using either Base64 or RC4 and inserts a special function that it&#8217;s used to decode it back at runtime. Beware that the RC4 option is about 30-35% slower than the Base64 option, but it&#8217;s more difficult to retrieve the strings back.
+    </li>
+    <li>
+        String Array Threshold &#8211; You can use this setting to adjust the probability (from 0 to 1) that a string literal will be inserted into the stringArray. <span class="notice">This setting is useful in large codebases as repeatdely calls to the stringArray function can slow down your code.</span>
+    </li>
+</ul>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Escape Unicode Sequence &#8211; Converts all the strings to their unicode representation. For instance, the string &#8220;Hello World!&#8221; will be converted to &#8220;&#8216;\x48\x65\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x21&#8221;. This convertion is pretty easy to revert, and will increase the obfuscated code size greatly. It&#8217;s not recommended on larger code bases.</p>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Disable Console Output &#8211; Disables the use of console.log, console.info, console.error and console.warn by replacing them with empty functions. This makes the use of the debugger harder.</p>
+<p><i class="wf wf-Y green-text margin-right10"></i>Debug Protection &#8211; <span class="notice">Can freeze your browser if you open the Developer Tools.</span></p>
+
+<ul>
+    <li>Debug Protection Can freeze your browser if you open the Developer Tools. This option makes it almost impossible to use the Console tab of the Developer Tools (both on Google Chrome and Mozilla Firefox).
+    </li>
+    <li>
+        Debug Protection Interval &#8211; If checked, an interval is used to force the debug mode on the Console tab, making it harder to use other features of the Developer Tools. How does it works? A special code that calls debugger; repeatedly is inserted throughout the obfuscated source code.
+    </li>
+</ul>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Domain Lock &#8211; Locks the obfuscated source code so it only runs on specific domains and/or sub-domains. This makes really hard for someone just copy and paste your source code and run elsewhere. Multiple domains and sub-domains &#8211; It&#8217;s possible to lock your code to more than one domain or sub-domain. For instance, to lock it so the code only runs on www.example.com add www.example.com, to make it work on any sub-domain from example.com, use .example.com.</p>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Reseverd Names &#8211; Disables the obfuscation of variables names, function names and function parameters that match the Regular Expression used. For instance, if you add ^someName, the obfuscator will ensure that all variables, function names and function arguments that starts with someName will not get mangled.</p>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Source Map &#8211; Be sure not to upload the obfuscated source code with the inline source map embedded on it, as it contains your original source code. Source maps can be useful to help you debug your obfuscated Java Script source code. If you want or need to debug in production, you can upload the separate source map file to a secret location and then point your browser there. Read more about source maps on the Google Chrome Developer Tools website.</p>
+<ul>
+    <li>
+        Inline Source Map &#8211; This embeds the source map of your source in the result of the obfuscated code. Useful if you just want to debug locally on your machine.
+    </li>
+    <li>
+        Separate Source Map &#8211; This generates a separate file with the source map. Useful to debug code in production, as this enables you to upload the source map to a secret location on your server and then point your browser to use it.
+    </li>
+    <li>
+        Use the Source Map Base URL and Source Map File Name to customize the sourceMappingURL property that will get appended to the end of your obfuscated code. For instance, if you set the Base URL to &#8220;http://localhost:9000&#8221; and File Name to &#8220;example&#8221;, you&#8217;ll get: //# sourceMappingURL=http://localhost:9000/example.js.map. appended to the end of your obfuscated code.
+    </li>
+</ul>
+
+<p><i class="wf wf-Y green-text margin-right10"></i>Seed &#8211; By default (seed = 0), each time you obfuscate your code you&#8217;ll get a new result (i.e: different variable names, different variables inserted into the stringArray, etc). If you want repeatable results, set the seed to a specific integer.</p>
+<p>Credits goes to <a href="https://github.com/sanex3339" target="_blank">Timofey Kachalov</a> for the obfuscator and <a href="https://github.com/slig" target="_blank">Tiago Serafim</a> for the interface and option explanation.</p></div>
+<p></p>
+<footer class="entry-footer">
+</footer>
+</article>
+</main>
+</section>
+</div><!-- .main-holder -->
+<!-- .sidebar -->
+<nav class="sidebar white collapse" id="mySidebar">
+<aside class="sbar-block">
+<div class="sbar-item buttons hide-show-item dove-gray white-text nepal white-text-hover" onclick="wz_close()" title="close menu">
+<i class="wf wf-x wf-fw margin-right10">
+</i>Close Menu
+</div>
+<div class="_wzlr- sidesearch" role="search">
+<form action="http://wizler.net/search/web/direct_search.php" method="get">
+<button value="1" class="_wlrbtn- _wlrbtnyo- _wlrbxtn- _wlrfcs-" aria-label="Search" tabindex="-1" type="submit">
+<i class="wf wf-g wf-fw">
+</i>
+</button>
+<div class="wlrtypehead wlrcdxs" data-ft="{&quot;tn&quot;:&quot;+Q&quot;}">
+<div class="wrap">
+<div class="innerWrap">
+<div class="wlr58g1 navigationFocus textInput wlr_5eaz">
+<input type="text" class="wlr_1frb" name="s" value="" autocomplete="off" placeholder="Search &hellip;" title="Search for:"/>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<div class="widget widget_categories"><h2 class="widgettitle">Categories</h2><ul>
+	<li class="cat-item cat-item-8"><a href="http://wizler.net/category/jwplayer" >JWPlayer</a> <span class="counter">(1)</span>
+</li>
+	<li class="cat-item cat-item-16"><a href="http://wizler.net/category/tools" >Tools</a> <span class="counter">(4)</span>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://wizler.net/category/uncategorized" >Uncategorized</a> <span class="counter">(1)</span>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://wizler.net/category/videojs" >VideoJS</a> <span class="counter">(1)</span>
+</li>
+</ul>
+</div>
+<div class="widget widget_recent_entries"><h2 class="widgettitle">Recent Posts</h2><ul>
+<li>
+<a href="http://wizler.net/js-obfuscator1.html">JS Obfuscator</a>
+<br>
+Options Guide Compact Code &#8211; Removes line breaks from the output obfuscated code. Mangle Variable</li>
+<li>
+<a href="http://wizler.net/aspect-ratio-calculator.html">16:9 and 4:3 Aspect Ratio Calculator<img width="128" height="72" src="http://wizler.net/wp-content/uploads/aspect-ratio-calculator.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" /></a>
+<br>
+Calculates the aspect ratio width and height of a video and images to come up</li>
+<li>
+<a href="http://wizler.net/css-formatter.html">CSS Formatter<img width="128" height="72" src="http://wizler.net/wp-content/uploads/css.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" /></a>
+<br>
+Tool to format, arrange or compress Cascading Style Sheet (CSS) on different options by making</li>
+<li>
+<a href="http://wizler.net/videojs-hls-tester.html">VideoJS HLS Tester<img width="128" height="72" src="http://wizler.net/wp-content/uploads/videojs.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" /></a>
+<br>
+A testing tool that can be used to test live streaming HLS (M3U8, RTMP) or</li>
+<li>
+<a href="http://wizler.net/jwplayer-hls-tester-2.html">JWPlayer HLS Tester<img width="128" height="72" src="http://wizler.net/wp-content/uploads/jwplayer.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" /></a>
+<br>
+A web tool that can be used to test live streaming HLS (M3U8, RTMP) or</li>
+</ul>
+</div>
+<div class="widget widget_about"><h2 class="widgettitle">About</h2><ul>
+<li>
+<a href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fwizler.net%2F">The Page Design<img width="48" height="48" src="http://wizler.net/wp-content/uploads/page-speed.png" class="" alt=""></a>
+<br>
+This site is design for speed, responsiveness, compatibility, error free, simplicity and navigability. </li>
+<li>
+<li>
+<a href="">The Page Builder<img width="96" height="96" src="http://wizler.net/img/wizler.png" class="" alt=""></a>
+<br>
+A freelance web page programmer, employed in PH government as Jail Officer since 1998.<br> If you want my service to help you in building your web site? Just post a request in the comments.</li>
+<li>    
+</ul>
+</div>
+
+</aside>
+</nav>
+<!-- .sidebar -->
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="overlay hide-show-item animate-opacity" onclick="wz_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<div style="clear:both"></div>
+</div><!-- .content-container -->
+</div><!-- .primary-container -->
+<script src="http://wizlern.herokuapp.com/static/dist/bundle.js"></script>
+<script>
+var mySidebar = document.getElementById("mySidebar");
+var overlayBg = document.getElementById("myOverlay");
+var maincontainerBg = document.getElementById("mymainContainer");
+function wz_open() {
+if (mySidebar.style.display === 'block') {
+mySidebar.style.display = 'none';
+overlayBg.style.display = "none";
+maincontainerBg.style.display = "block";
+} else {
+mySidebar.style.display = 'block';
+overlayBg.style.display = "block";
+maincontainerBg.style.display = "none";
+}
+}
+function wz_close() {
+mySidebar.style.display = "none";
+overlayBg.style.display = "none";
+maincontainerBg.style.display = "block";
+}
+</script>
+</body>
 </html>
